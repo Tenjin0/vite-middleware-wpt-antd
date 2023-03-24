@@ -3,6 +3,12 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    watch: {
+      followSymlinks: false,
+      ignored: ['!**/node_modules/@wynd/redux-wps-middleware/**']
+    }
+  },
   css: {
     preprocessorOptions: {
       less: {
@@ -16,7 +22,9 @@ export default defineConfig({
     ],  
   },
   optimizeDeps:{
-    include: ["@wynd/redux-wps-middleware"]
+    force: true,
+    include: ["@wynd/redux-wps-middleware"],
+    exclude: ["@wynd/redux-wps-middleware"]
   },
   plugins: [react()],
 })

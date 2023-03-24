@@ -2,6 +2,9 @@ import React, { useState } from "react"
 import { Button, Form, Input } from "antd"
 import { universalTerminal, UniversalTerminal } from "@wynd/redux-wps-middleware"
 import { IUniversalTerminalContainerProps } from "../containers/universalterminal"
+import { useSelector } from "react-redux"
+import { IAppContainer } from "@wynd/redux-wps-middleware/dist/constants/enum_and_interface"
+import { IRootState } from "../utils/interface"
 
 export interface IUniversalTerminalState {
 	amount: number
@@ -18,7 +21,10 @@ const UniversalTerminaComponent: React.FunctionComponent<IUniversalTerminalConta
 		showAsk: false
 	})
 
+	const container = useSelector<IRootState, IAppContainer | null>((state: IRootState) => state.wyndpostools.container)
+
 	const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+		console.log(container)
 		const choice = e.currentTarget.dataset && e.currentTarget.dataset.choice
 		switch (choice) {
 			case "confirm":

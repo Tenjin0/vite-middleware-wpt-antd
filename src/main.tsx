@@ -15,7 +15,14 @@ import App from "./App"
 import "./styles/index.less";
 
 
+export interface ISize {
+	width: number
+	height: number
+}
 
+export interface IOpenBrowserViewOpts extends ISize {
+
+}
 interface IMyWindow extends Window {
 	store: typeof store;
 	emit: typeof emit;
@@ -31,6 +38,12 @@ interface IMyWindow extends Window {
 	System: WPTController
 	RfidUpos: WPTController
 	Printer: WPTController
+	send: Function
+	electron: {
+		getSize: () => Promise<ISize>
+		openBrowserView: (url: string, opts: IOpenBrowserViewOpts) => Promise<void>
+		closeBrowserView: () => Promise<void>
+	}
 }
 
 declare var window: IMyWindow;
@@ -58,3 +71,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		</Provider>
 	</React.StrictMode>,
 )
+
+
+setTimeout(async () => {
+	wpsManager.log.info("test from app",["apple", "orange"])
+	wpsManager.log.info("test from app 2")
+	// const result = await window.electron.getSize()
+	// console.log(result)
+	// await window.electron.openBrowserView("https://www.google.com", { width: result.width /2, height: result.height / 2})
+}, 1000)
